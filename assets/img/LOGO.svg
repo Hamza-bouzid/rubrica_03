@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240">
+	<path d="M120 20 30 70v76l90 74.24 90-74V70Zm0 73h48l-48 78Z" fill="#1999ce"/>
+	<path d="m30 70 42-23.22v46.73L30 145.8Zm138 23.51 42-23.51v76h-42z" fill="#2cb5e6"/>
+	<path d="m120 20 42.26 23.48L120 67 77.51 43.48ZM72 93.26l48 77.86 48-77.86v52.53L120 220l-47.85-40Z" fill="#68c1ea"/>
+	<path d="M120 93.64v-26.6L72 93.26Z" fill="#91cfef"/>
+	<path d="M120 93.26V67l48 26.22z" fill="#b5ddf4"/>
+	<path d="M120 93.26v77.86L72 93.26Z" fill="#d9edfa"/>
+</svg>

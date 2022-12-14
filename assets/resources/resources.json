@@ -1,0 +1,16 @@
+{
+	"en": {
+		"translation": {
+			"hello": {
+				"world": "Hello MDC-X!"	
+			}
+		}
+	},
+	"it": {
+		"translation": {
+			"hello": {
+				"world": "Buongiorno MDC-X!"	
+			}
+		}
+	}
+}
