@@ -1,17 +1,73 @@
 import React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet, Button, Image, Text, TextInput } from 'react-native';
+import { View, StyleSheet, Button, Image, Text, TextInput, FlatList} from 'react-native';
 
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
 
 import HelloWorld from '../components/HelloWorld';
 import { backgroundColor } from 'mdcx-framework/dist/GUI/Navbar';
+import Card from '../components/Card';
+
+const contacts = [
+  {
+    id: '1',
+    name: 'Marco',
+    surname: 'Rossi',
+  },
+  {
+    id: '2',
+    name: 'Giovanni',
+    surname: 'Rossi',
+  },
+  {
+    id: '3',
+    name: 'Anna',
+    surname: 'Rossi',
+  },
+  {
+    id: '4',
+    name: 'Anna',
+    surname: 'Rossi',
+  },
+  {
+    id: '2',
+    name: 'Giovanni',
+    surname: 'Rossi',
+  },
+  {
+    id: '3',
+    name: 'Anna',
+    surname: 'Rossi',
+  },
+  {
+    id: '4',
+    name: 'Anna',
+    surname: 'Rossi',
+  },
+  {
+    id: '2',
+    name: 'Giovanni',
+    surname: 'Rossi',
+  },
+  {
+    id: '3',
+    name: 'Anna',
+    surname: 'Rossi',
+  },
+  {
+    id: '4',
+    name: 'Anna',
+    surname: 'Rossi',
+  },
+];
 
 const HomeScreen = (props) => {
   const { navigation } = props;
   const [isVisible, setIsVisible] = useState(true);
   const [buttonText, setButtonText] = useState('Nascondi');
+
+  const renderContact = ({ item }) => <Card name={item.name} surname={item.surname} />;
 
   const showView = () => {
     if (isVisible) {
@@ -42,9 +98,10 @@ const HomeScreen = (props) => {
       <View style={style.view2}></View>
 
       <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button> */}
-    
+
       <View style={style.main}>
         {/*Barra di ricerca */}
+        <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
         <View style={[style.textInput, style.viewSearch]}>
           <TextInput
             style={{
@@ -59,6 +116,10 @@ const HomeScreen = (props) => {
         </View>
       </View>
       <View style={style.border}></View>
+      <View>
+        <FlatList data={contacts} renderItem={renderContact} keyExtractor={(item) => item.id} />
+      </View>
+      <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
     </View>
   );
 };
@@ -71,7 +132,7 @@ const style = StyleSheet.create({
     paddingRight: 5,
   },
   textInput: {
-    backgroundColor: '#dee0e7',
+    backgroundColor: '#e3e3e8',
     marginBottom: 10,
     borderRadius: 20,
     padding: 10,
@@ -82,14 +143,14 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     borderBottomWidth: 2,
-    borderBottomColor: '#ccc'
+    borderBottomColor: '#ccc',
   },
 
   border: {
     width: '100%',
     height: 0.5,
-    backgroundColor: '#ccc'
-  }
+    backgroundColor: '#ccc',
+  },
 });
 
 export default MDC.localization.withTranslation()(HomeScreen);

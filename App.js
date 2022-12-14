@@ -16,6 +16,7 @@ import * as Screen from './src/screens';
 MDC.gui.topbar.backgroundColor('#fafafa');
 
 import resources from './assets/resources/resources.json';
+import NavBar from "./src/components/NavBar";
 
 const MDCStack = createMDCNavigator();
 
@@ -49,6 +50,7 @@ class MDCTemplate extends MDCBundle {
           <MDCStack.Screen name="Elements" component={Screen.ElementsScreen} options={{ title: "UI Elements" }} />
           <MDCStack.Screen name="Inputs" component={Screen.InputsScreen} options={{ title: "Inputs" }} />
         </MDCStack.Navigator>
+        <NavBar />
       </NavigationContainer>
     )
   }
