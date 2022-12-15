@@ -15,6 +15,7 @@ import * as Screen from './src/screens';
 
 MDC.gui.topbar.backgroundColor('#fafafa');
 
+
 import resources from './assets/resources/resources.json';
 import NavBar from "./src/components/NavBar";
 

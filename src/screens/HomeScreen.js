@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
-import { View, StyleSheet, Button, Image, Text, TextInput, FlatList} from 'react-native';
+import { useState, useEffect } from 'react';
+import { View, StyleSheet, Button, Image, Text, TextInput, FlatList } from 'react-native';
 
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
@@ -9,114 +9,57 @@ import HelloWorld from '../components/HelloWorld';
 import { backgroundColor } from 'mdcx-framework/dist/GUI/Navbar';
 import Card from '../components/Card';
 
-const contacts = [
-  {
-    id: '1',
-    name: 'Marco',
-    surname: 'Rossi',
-  },
-  {
-    id: '2',
-    name: 'Giovanni',
-    surname: 'Rossi',
-  },
-  {
-    id: '3',
-    name: 'Anna',
-    surname: 'Rossi',
-  },
-  {
-    id: '4',
-    name: 'Anna',
-    surname: 'Rossi',
-  },
-  {
-    id: '2',
-    name: 'Giovanni',
-    surname: 'Rossi',
-  },
-  {
-    id: '3',
-    name: 'Anna',
-    surname: 'Rossi',
-  },
-  {
-    id: '4',
-    name: 'Anna',
-    surname: 'Rossi',
-  },
-  {
-    id: '2',
-    name: 'Giovanni',
-    surname: 'Rossi',
-  },
-  {
-    id: '3',
-    name: 'Anna',
-    surname: 'Rossi',
-  },
-  {
-    id: '4',
-    name: 'Anna',
-    surname: 'Rossi',
-  },
-];
-
 const HomeScreen = (props) => {
   const { navigation } = props;
-  const [isVisible, setIsVisible] = useState(true);
-  const [buttonText, setButtonText] = useState('Nascondi');
+  const [contacts, setContacts] = useState();
 
-  const renderContact = ({ item }) => <Card name={item.name} surname={item.surname} />;
+  // Funzione per la chiamata Goal
+  const goalCall = async (url) => {
+    const tokens = await MDC.session.tokens();
+    const auth = 'bearer ' + tokens.accessToken;
 
-  const showView = () => {
-    if (isVisible) {
-      setIsVisible(false);
-      setButtonText('Mostra');
-    } else {
-      setIsVisible(true);
-      setButtonText('Nascondi');
-    }
+    const response = await fetch('https://services.g-oal.com/academy_03.dev/v1/' + url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: auth, //'HS256 XXX'
+      },
+      body: JSON.stringify({}),
+    });
+
+    setContacts(await response.json());
+
+    return contacts;
   };
+
+  useEffect(() => {
+    goalCall('contact/get_user_contacts');
+  });
+
+  const renderContact = ({ item }) => <Card name={item.name} surname={item.surname} avatar={item.avatar} />;
 
   return (
     <View style={style.main}>
-      {/* <Button onPress={() => showView()} title={buttonText} style={style.buttonColor}></Button>
-      <View style={style.view1}>
-        <Image
+      {/*Barra di ricerca */}
+      <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
+      <View style={[style.textInput, style.viewSearch]}>
+        <TextInput
           style={{
-            resizeMode: 'contain',
-            height: 200,
-            width: 200,
+            padding: 0,
+            width: '90%',
           }}
-          source={{ uri: 'https://icones.pro/wp-content/uploads/2021/02/phone-icon-rose.png' }}
+          placeholder="Cerca"
+          placeholderTextColor="#999"
         />
+
+        <MDCIcon icon={'search'} color={'#999'}></MDCIcon>
       </View>
 
-      {isVisible ? <View style={style.view2}></View> : <></>}
-
-      <View style={style.view2}></View>
-
-      <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button> */}
-
-      <View style={style.main}>
-        {/*Barra di ricerca */}
-        <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
-        <View style={[style.textInput, style.viewSearch]}>
-          <TextInput
-            style={{
-              padding: 0,
-              width: '90%',
-            }}
-            placeholder="Cerca"
-            placeholderTextColor="#999"
-          />
-
-          <MDCIcon icon={'search'} color={'#999'}></MDCIcon>
-        </View>
-      </View>
       <View style={style.border}></View>
-      <View>
+      <View style={{
+        paddingVertical: 10
+      }}>
         <FlatList data={contacts} renderItem={renderContact} keyExtractor={(item) => item.id} />
       </View>
       <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
@@ -150,6 +93,7 @@ const style = StyleSheet.create({
     width: '100%',
     height: 0.5,
     backgroundColor: '#ccc',
+    marginBottom: 10,
   },
 });
 

@@ -10,18 +10,17 @@ const Card = ({name, surname, avatar, telephone_number}) => {
         <View style={style.card}>
           <Image
             style={{
-              resizeMode: 'contain',
+              resizeMode: 'cover',
               height: 50,
               width: 50,
-              borderRadius: 100 / 2,
+              borderRadius: 100 / 1,
             }}
-            source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Valentino_Rossi_2010_Qatar.jpg' }}
+            source={{uri: avatar}}
+            
           />
           <View
             style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              width: '80%',
+              marginLeft: 20
             }}
           >
             <Text style={{
@@ -57,9 +56,8 @@ const style = StyleSheet.create({
         flexWrap: 'wrap',
         alignItems: 'center',
         padding: 10,
-        borderWidth: 0.5,
-        borderColor: '#ccc',
-        borderRadius: 20,
+        borderBottomWidth: 0.5,
+        borderBottomColor: '#ccc',
         marginTop: 10,
         marginBottom: 10,
       },
