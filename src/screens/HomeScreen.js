@@ -12,9 +12,12 @@ import Card from '../components/Card';
 const HomeScreen = (props) => {
   const { navigation } = props;
   const [contacts, setContacts] = useState();
+  const [textInput, setTextInput] = useState({
+    textInput: '',
+  });
 
   // Funzione per la chiamata Goal
-  const goalCall = async (url) => {
+  const goalCall = async (url, body) => {
     const tokens = await MDC.session.tokens();
     const auth = 'bearer ' + tokens.accessToken;
 
@@ -25,7 +28,7 @@ const HomeScreen = (props) => {
         'Content-Type': 'application/json',
         Authorization: auth, //'HS256 XXX'
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify(body),
     });
 
     setContacts(await response.json());
@@ -34,7 +37,7 @@ const HomeScreen = (props) => {
   };
 
   useEffect(() => {
-    goalCall('contact/get_user_contacts');
+    goalCall('contact/get_user_contacts', textInput);
   });
 
   const renderContact = ({ item }) => <Card name={item.name} surname={item.surname} avatar={item.avatar} />;
@@ -44,7 +47,9 @@ const HomeScreen = (props) => {
       {/*Barra di ricerca */}
       <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
       <View style={[style.textInput, style.viewSearch]}>
+        <MDCIcon icon={'search'} color={'#999'}></MDCIcon>
         <TextInput
+          onChangeText={(text) => setTextInput({ textInput: text })}
           style={{
             padding: 0,
             width: '90%',
@@ -52,17 +57,16 @@ const HomeScreen = (props) => {
           placeholder="Cerca"
           placeholderTextColor="#999"
         />
-
-        <MDCIcon icon={'search'} color={'#999'}></MDCIcon>
       </View>
 
       <View style={style.border}></View>
-      <View style={{
-        paddingVertical: 10
-      }}>
+      <View
+        style={{
+          paddingVertical: 10,
+        }}
+      >
         <FlatList data={contacts} renderItem={renderContact} keyExtractor={(item) => item.id} />
       </View>
-      <Button color="#2196f3" onPress={() => navigation.navigate('Inputs')} title={'Vai a Inputs'}></Button>
     </View>
   );
 };
