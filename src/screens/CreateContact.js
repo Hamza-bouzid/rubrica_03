@@ -37,7 +37,8 @@ const CreateContact = (props) => {
     navigation.navigate('Home');
   };
 
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(true);
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [newDate, setNewDate]= useState(null);
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -49,8 +50,12 @@ const CreateContact = (props) => {
 
   const handleConfirm = (date) => {
     console.warn('A date has been picked: ', date);
+    setNewDate(date);
+    console.log(newDate + "ciao");
     hideDatePicker();
   };
+
+
 
   return (
     <View style={style.main}>
@@ -91,7 +96,7 @@ const CreateContact = (props) => {
       <TouchableOpacity onPress={showDatePicker}>
         <View  style={[style.textInput, style.icon]}>
           <MDCIcon icon={'calendar-days'} color={'#ccc'}></MDCIcon>
-          <TextInput style={style.textView} editable={false} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
+          <TextInput style={style.textView} editable={false} value={newDate} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
           <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
         </View>
       </TouchableOpacity>
