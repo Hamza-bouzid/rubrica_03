@@ -38,7 +38,7 @@ const CreateContact = (props) => {
   };
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [newDate, setNewDate]= useState(null);
+  const [newDate, setNewDate] = useState('123344');
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -49,13 +49,13 @@ const CreateContact = (props) => {
   };
 
   const handleConfirm = (date) => {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     console.warn('A date has been picked: ', date);
-    setNewDate(date);
-    console.log(newDate + "ciao");
+    setNewDate(date.toLocaleDateString('it', options));
+    
+    console.log(newDate)
     hideDatePicker();
   };
-
-
 
   return (
     <View style={style.main}>
@@ -94,7 +94,7 @@ const CreateContact = (props) => {
       </View>
 
       <TouchableOpacity onPress={showDatePicker}>
-        <View  style={[style.textInput, style.icon]}>
+        <View style={[style.textInput, style.icon]}>
           <MDCIcon icon={'calendar-days'} color={'#ccc'}></MDCIcon>
           <TextInput style={style.textView} editable={false} value={newDate} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
           <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
