@@ -12,7 +12,9 @@
     "dependencies": {
         "mdcx-base": "^3.0.0",
         "mdcx-components": "^2.3.11-beta3",
-        "mdcx-framework": "^2.1.16-beta1"
+        "mdcx-framework": "^2.1.16-beta1",
+        "moment": "^2.29.4",
+        "react-native-modal-datetime-picker": "^14.0.0"
     },
     "devDependencies": {
         "@babel/core": "7.14.6",
@@ -24,8 +26,8 @@
         "metro-react-native-babel-preset": "0.59.0",
         "qrcode-terminal": "^0.12.0",
         "react": "17.0.2",
-        "react-native": "0.66.4",
         "react-devtools": "^4.10.1",
+        "react-native": "0.66.4",
         "react-test-renderer": "17.0.2"
     },
     "jest": {

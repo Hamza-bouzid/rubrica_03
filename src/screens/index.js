@@ -1,9 +1,9 @@
 import HomeScreen from './HomeScreen';
 import ElementsScreen from "./ElementsScreen";
-import InputsScreen from "./InputsScreen"
+import CreateContact from "./CreateContact"
 
 export {
     HomeScreen,
     ElementsScreen,
-    InputsScreen
+    CreateContact
 }
