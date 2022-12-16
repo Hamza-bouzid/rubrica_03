@@ -88,6 +88,7 @@ const CreateContact = (props) => {
           placeholderTextColor="#999"
         />
       </View>
+      <View></View>
       <View style={[style.textInput, style.icon]}>
       <MDCIcon icon={'phone'} color={'#ccc'}></MDCIcon>
         <TextInput
