@@ -1,10 +1,9 @@
-import React from "react";
 import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text } from "react-native";
-
 import * as MDC from "mdcx-framework";
 import moment from 'moment';
 import { MDCIcon } from 'mdcx-components';
-
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import React, { useState } from "react";
 
 
 const CreateContact = (props) => {
@@ -40,6 +39,22 @@ const CreateContact = (props) => {
       goalCall();
       navigation.navigate('Home');
     }
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
+    };
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+  
+    const handleConfirm = (date) => {
+      console.warn("A date has been picked: ", date);
+      hideDatePicker();
+    };
+  
   return (
     <View style={style.main}>
       <Image
@@ -99,6 +114,7 @@ const CreateContact = (props) => {
         style={style.textView}
           placeholder="Compleanno"
           placeholderTextColor="#999"
+          title="Show Date Picker" onPress={showDatePicker}
         />
        
       </View>
