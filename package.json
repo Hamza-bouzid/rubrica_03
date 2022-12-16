@@ -13,7 +13,9 @@
         "@react-navigation/native": "^6.1.1",
         "mdcx-base": "^3.0.0",
         "mdcx-components": "^2.3.11-beta3",
-        "mdcx-framework": "^2.1.16-beta1"
+        "mdcx-framework": "^2.1.16-beta1",
+        "moment": "^2.29.4",
+        "react-native-modal-datetime-picker": "^14.0.0"
     },
     "devDependencies": {
         "@babel/core": "7.14.6",
