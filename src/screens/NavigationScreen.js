@@ -18,7 +18,7 @@ const NavigationScreen = (props) => {
       <MDCStack.Navigator initialRouteName="HomeScreen">
         <MDCStack.Screen name="Home" component={Screen.HomeScreen} options={{ title: 'Contatti' }} />
         <MDCStack.Screen name="Elements" component={Screen.ElementsScreen} options={{ title: 'UI Elements' }} />
-        <MDCStack.Screen name="Inputs" component={Screen.InputsScreen} options={{ title: 'Inputs' }} />
+        <MDCStack.Screen name="CreateContact" component={Screen.CreateContact} options={{ title: 'Nuovo Contatto' }} />
       </MDCStack.Navigator>
       <NavBar navigation={navigation} />
     </>

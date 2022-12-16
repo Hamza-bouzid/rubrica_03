@@ -4,7 +4,7 @@ import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text } from "reac
 import * as MDC from "mdcx-framework";
 import moment from 'moment';
 import { MDCIcon } from 'mdcx-components';
-import DateTimePickerModal from 'react-native-modal-datetime-picker'
+
 
 
 const CreateContact = (props) => {
@@ -100,12 +100,7 @@ const CreateContact = (props) => {
           placeholder="Compleanno"
           placeholderTextColor="#999"
         />
-       < DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="date"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
+       
       </View>
 
       <View style={[style.textInput, style.icon]}>

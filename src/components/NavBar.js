@@ -9,7 +9,7 @@ const NavBar = (props) => {
   return (
     <View style={style.navbar}>
       <View style={style.iconBox}>
-        <TouchableOpacity onPress={() => navigation.navigate('Inputs')}>
+        <TouchableOpacity onPress={() => navigation.navigate('CreateContact')}>
           <MDCIcon width={30} height={30} icon={'star'} color={'#999'}></MDCIcon>
           <Text style={style.iconText}>Preferiti</Text>
         </TouchableOpacity>

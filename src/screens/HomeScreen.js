@@ -54,7 +54,7 @@ const HomeScreen = (props) => {
           paddingRight: 10,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('Inputs')}>
+        <TouchableOpacity onPress={() => navigation.navigate('CreateContact')}>
           <MDCIcon icon={'plus-circle'} width={30} height={30} color={'#999'}></MDCIcon>
         </TouchableOpacity>
       </View>
