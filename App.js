@@ -1,10 +1,10 @@
-import { LogBox } from "react-native";
+import { LogBox } from 'react-native';
 
-LogBox.ignoreLogs(["EventEmitter.removeListener"]);
-LogBox.ignoreLogs(["new NativeEventEmitter"]);
-LogBox.ignoreLogs(["new NativeEventEmitter()"]);
-LogBox.ignoreLogs(["`new NativeEventEmitter()"]);
-LogBox.ignoreLogs(["`new NativeEventEmitter"]);
+LogBox.ignoreLogs(['EventEmitter.removeListener']);
+LogBox.ignoreLogs(['new NativeEventEmitter']);
+LogBox.ignoreLogs(['new NativeEventEmitter()']);
+LogBox.ignoreLogs(['`new NativeEventEmitter()']);
+LogBox.ignoreLogs(['`new NativeEventEmitter']);
 
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,30 +15,33 @@ import * as Screen from './src/screens';
 
 MDC.gui.topbar.backgroundColor('#fafafa');
 
-
 import resources from './assets/resources/resources.json';
-import NavBar from "./src/components/NavBar";
+
+import NavigationScreen from './src/screens/NavigationScreen';
 
 const MDCStack = createMDCNavigator();
 
 MDC.localization.resources(resources);
 
 class MDCTemplate extends MDCBundle {
-
-  bundleDidLoad(params){
-    MDC.logger.info("bundleDidLoad()", params);
-
-    console.log(params);
-  }
-
-  bundleDidShow(params){
-    MDC.logger.info("bundleDidShow()", params);
+  navigationStarterRef = React.createRef()
+  bundleDidLoad(params) {
+    MDC.logger.info('bundleDidLoad()', params);
 
     console.log(params);
   }
 
-  bundleShouldHide(callback){
-    MDC.logger.info("bundleShouldHide()");
+  bundleDidShow(params) {
+    console.log(params)
+   if(this.navigationStarterRef.current) {
+    this.navigationStarterRef.current.bundleDidShow(params)
+   }
+
+    console.log(params);
+  }
+
+  bundleShouldHide(callback) {
+    MDC.logger.info('bundleShouldHide()');
 
     callback();
   }
@@ -46,14 +49,9 @@ class MDCTemplate extends MDCBundle {
   render() {
     return (
       <NavigationContainer>
-        <MDCStack.Navigator initialRouteName="HomeScreen">
-          <MDCStack.Screen name="Home" component={Screen.HomeScreen} options={{ title: "Contatti" }} />
-          <MDCStack.Screen name="Elements" component={Screen.ElementsScreen} options={{ title: "UI Elements" }} />
-          <MDCStack.Screen name="Inputs" component={Screen.CreateContact} options={{ title: "Inputs" }} />
-        </MDCStack.Navigator>
-        <NavBar />
+        <NavigationScreen />
       </NavigationContainer>
-    )
+    );
   }
 }
 

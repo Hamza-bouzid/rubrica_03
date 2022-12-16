@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
@@ -8,16 +8,20 @@ const NavBar = (props) => {
   const { navigation } = props;
   return (
     <View style={style.navbar}>
-      <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
-        <MDCIcon width={30} height={30}  icon={'star'} color={'#999'}></MDCIcon>
-        <Text style={style.iconText}>Preferiti</Text>
+      <View style={style.iconBox}>
+        <TouchableOpacity onPress={() => navigation.navigate('Inputs')}>
+          <MDCIcon width={30} height={30} icon={'star'} color={'#999'}></MDCIcon>
+          <Text style={style.iconText}>Preferiti</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={style.iconBox}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+          <MDCIcon width={30} height={30} icon={'user'} color={'#999'}></MDCIcon>
+          <Text style={style.iconText}>Contatti</Text>
+        </TouchableOpacity>
       </View>
       <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
-        <MDCIcon width={30} height={30}  icon={'user'} color={'#999'}></MDCIcon>
-        <Text style={style.iconText}>Contatti</Text>
-      </View>
-      <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
-        <MDCIcon width={30} height={30}  icon={'th'} color={'#999'}></MDCIcon>
+        <MDCIcon width={30} height={30} icon={'th'} color={'#999'}></MDCIcon>
         <Text style={style.iconText}>Tastierino</Text>
       </View>
       <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
@@ -40,8 +44,7 @@ const style = StyleSheet.create({
   },
   iconBox: {
     flex: 1,
-    alignItems: 'center'
-    
+    alignItems: 'center',
   },
   icon: {
     fontSize: 30,
@@ -49,7 +52,7 @@ const style = StyleSheet.create({
   iconText: {
     fontSize: 10,
     color: '#999',
-    paddingTop: 5
+    paddingTop: 5,
   },
 });
 

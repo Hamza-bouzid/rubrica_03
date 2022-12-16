@@ -10,6 +10,7 @@
         "lint": "eslint ."
     },
     "dependencies": {
+        "@react-navigation/native": "^6.1.1",
         "mdcx-base": "^3.0.0",
         "mdcx-components": "^2.3.11-beta3",
         "mdcx-framework": "^2.1.16-beta1",
