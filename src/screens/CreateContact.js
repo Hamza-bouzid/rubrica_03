@@ -1,4 +1,4 @@
-import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text, ScrollView } from 'react-native';
 import * as MDC from 'mdcx-framework';
 import moment from 'moment';
 import { MDCIcon } from 'mdcx-components';
@@ -18,6 +18,7 @@ const CreateContact = (props) => {
     telephone_number: '',
     avatar: '',
   });
+
 
   const goalCall = async (body) => {
     const tokens = await MDC.session.tokens();
@@ -53,27 +54,47 @@ const CreateContact = (props) => {
   const handleConfirm = (date) => {
     console.warn('A date has been picked: ', date);
     setContact((prevState) => {
-      return { ...prevState, birthday: date.toLocaleDateString() };
+      return { ...prevState, birthday: date.toLocaleDateString(), avatar: image };
     });
     hideDatePicker();
   };
 
+  const randomImage = () => {
+    const gender = ['male', 'female'];
+    const randomNumber = Math.floor(Math.random() * 70);
+    const randomGender = Math.floor(Math.random() * 2);
+
+    setImage(`https://xsgames.co/randomusers/assets/avatars/${gender[randomGender]}/${randomNumber}.jpg`);
+
+    console.log(image);
+  };
+
   return (
-    <View style={style.main}>
-      <Image
+    <ScrollView style={style.main}>
+      <View
         style={{
-          resizeMode: 'cover',
-          height: 150,
-          width: 150,
-          borderRadius: 100 / 1,
-          marginBottom: 20,
-          marginTop: 10,
-          alignSelf: 'center',
+          marginBottom: 25,
         }}
-        source={{
-          uri: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Valentino_Rossi_2010_Qatar.jpg',
-        }}
-      />
+      >
+        <Image
+          style={{
+            resizeMode: 'cover',
+            height: 150,
+            width: 150,
+            borderRadius: 100 / 1,
+            marginBottom: 1,
+            marginTop: 10,
+            alignSelf: 'center',
+          }}
+          source={{
+            uri: image,
+          }}
+        />
+
+        <TouchableOpacity style={style.button} onPress={() => randomImage()}>
+          <Text>Aggiungi imagine</Text>
+        </TouchableOpacity>
+      </View>
 
       <View style={[style.textInput, style.icon]}>
         <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
@@ -146,7 +167,7 @@ const CreateContact = (props) => {
       <TouchableOpacity style={style.button} onPress={() => saveData()}>
         <Text style={{ fontWeight: 'bold' }}>Aggiungi contatto</Text>
       </TouchableOpacity>
-    </View>
+    </ScrollView>
   );
 };
 

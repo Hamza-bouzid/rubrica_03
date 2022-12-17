@@ -8,7 +8,7 @@ import { MDCIcon } from 'mdcx-components';
 const Card = ({ name, surname, avatar, telephone_number }) => {
   return (
     <View style={style.card}>
-      <Image
+      {avatar !== "" ? <Image
         style={{
           resizeMode: 'cover',
           height: 50,
@@ -16,7 +16,16 @@ const Card = ({ name, surname, avatar, telephone_number }) => {
           borderRadius: 100 / 1,
         }}
         source={{ uri: avatar }}
-      />
+      /> : <Image
+      style={{
+        resizeMode: 'cover',
+        height: 50,
+        width: 50,
+        borderRadius: 100 / 1,
+      }}
+      source={{ uri: 'https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png' }}
+    /> }
+      
       <View
         style={{
           marginLeft: 20,

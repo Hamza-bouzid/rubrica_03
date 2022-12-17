@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, StyleSheet, TextInput, FlatList, TouchableOpacity, Text, Button } from 'react-native';
+import { View, StyleSheet, TextInput, FlatList, TouchableOpacity, Text } from 'react-native';
 
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
@@ -40,7 +40,7 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     goalCall('contact/get_user_contacts', textInput);
-  }, [textInput]);
+  }, [textInput, contacts]);
 
   const renderContact = ({ item }) => <Card name={item.name} surname={item.surname} avatar={item.avatar} />;
 
@@ -78,7 +78,7 @@ const HomeScreen = (props) => {
           paddingVertical: 10,
         }}
       >
-        {contacts ? (
+        {contacts && contacts.length <= 0 ? (
           <View style={style.noResult}>
             <MDCIcon width={50} height={50} icon={'search'} color={'#999'}></MDCIcon>
             <Text style={style.noResultBigText}>Nessun risultato per "{textInput.textInput}" </Text>
@@ -88,8 +88,6 @@ const HomeScreen = (props) => {
           <FlatList data={contacts} renderItem={renderContact} keyExtractor={(item) => item.id} />
         )}
       </View>
-
-    
     </View>
   );
 };
