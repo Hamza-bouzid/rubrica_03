@@ -20,9 +20,11 @@ const NavBar = (props) => {
           <Text style={style.iconText}>Contatti</Text>
         </TouchableOpacity>
       </View>
-      <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
-        <MDCIcon width={30} height={30} icon={'th'} color={'#999'}></MDCIcon>
-        <Text style={style.iconText}>Tastierino</Text>
+      <View style={style.iconBox}>
+        <TouchableOpacity onPress={() => navigation.navigate('Call')}>
+          <MDCIcon width={30} height={30} icon={'th'} color={'#999'}></MDCIcon>
+          <Text style={style.iconText}>Tastierino</Text>
+        </TouchableOpacity>
       </View>
       <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
         <MDCIcon width={30} height={30} icon={'user-friends'} color={'#999'}></MDCIcon>
@@ -31,6 +33,8 @@ const NavBar = (props) => {
     </View>
   );
 };
+
+
 
 const style = StyleSheet.create({
   navbar: {

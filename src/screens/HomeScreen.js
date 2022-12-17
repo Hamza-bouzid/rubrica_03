@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { View, StyleSheet, TextInput, FlatList, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TextInput, FlatList, TouchableOpacity, Text, Button } from 'react-native';
 
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
@@ -88,6 +88,8 @@ const HomeScreen = (props) => {
           <FlatList data={contacts} renderItem={renderContact} keyExtractor={(item) => item.id} />
         )}
       </View>
+
+    
     </View>
   );
 };
