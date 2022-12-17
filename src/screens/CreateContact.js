@@ -7,7 +7,19 @@ import React, { useState } from 'react';
 
 const CreateContact = (props) => {
   const { navigation } = props;
-  const goalCall = async () => {
+
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const [image, setImage] = useState('https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png');
+  const [contact, setContact] = useState({
+    name: '',
+    surname: '',
+    email: '',
+    birthday: '',
+    telephone_number: '',
+    avatar: '',
+  });
+
+  const goalCall = async (body) => {
     const tokens = await MDC.session.tokens();
     const auth = 'bearer ' + tokens.accessToken;
 
@@ -18,27 +30,17 @@ const CreateContact = (props) => {
         'Content-Type': 'application/json',
         Authorization: auth, //'HS256 XXX'
       },
-      body: JSON.stringify({
-        name: 'Jasmine',
-        surname: 'Gialli',
-        email: 'giovannigialli@gmail.com',
-        birthday: '30-11-1999',
-        address: 'via rossi, 9',
-        telephone_number: '3546836452',
-        avatar: 'https://static.wikia.nocookie.net/disney/images/5/53/Profile_-_Jasmine.jpg/revision/latest?cb=20200316162740&path-prefix=it',
-      }),
+      body: JSON.stringify(body),
     });
 
+    console.log(body);
     return;
   };
 
   const saveData = () => {
-    goalCall();
+    goalCall(contact);
     navigation.navigate('Home');
   };
-
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-  const [newDate, setNewDate] = useState('123344');
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -49,11 +51,10 @@ const CreateContact = (props) => {
   };
 
   const handleConfirm = (date) => {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     console.warn('A date has been picked: ', date);
-    setNewDate(date.toLocaleDateString('it', options));
-    
-    console.log(newDate)
+    setContact((prevState) => {
+      return { ...prevState, birthday: date.toLocaleDateString() };
+    });
     hideDatePicker();
   };
 
@@ -76,27 +77,64 @@ const CreateContact = (props) => {
 
       <View style={[style.textInput, style.icon]}>
         <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
-        <TextInput style={style.textView} placeholder="Nome" placeholderTextColor="#999" />
+        <TextInput
+          style={style.textView}
+          placeholder="Nome"
+          placeholderTextColor="#999"
+          onChangeText={(text) =>
+            setContact((prevState) => {
+              return { ...prevState, name: text };
+            })
+          }
+        />
       </View>
       <View style={[style.textInput, style.icon]}>
         <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
-        <TextInput style={style.textView} placeholder="Cognome" placeholderTextColor="#999" />
+        <TextInput
+          style={style.textView}
+          placeholder="Cognome"
+          placeholderTextColor="#999"
+          onChangeText={(text) =>
+            setContact((prevState) => {
+              return { ...prevState, surname: text };
+            })
+          }
+        />
       </View>
-      <View></View>
       <View style={[style.textInput, style.icon]}>
         <MDCIcon icon={'phone'} color={'#ccc'}></MDCIcon>
-        <TextInput style={style.textView} keyboardType="phone-pad" placeholder="Numero" placeholderTextColor="#999" />
+        <TextInput
+          style={style.textView}
+          keyboardType="phone-pad"
+          placeholder="Numero"
+          placeholderTextColor="#999"
+          onChangeText={(text) =>
+            setContact((prevState) => {
+              return { ...prevState, telephone_number: text };
+            })
+          }
+        />
       </View>
 
       <View style={[style.textInput, style.icon]}>
         <MDCIcon icon={'envelope'} color={'#ccc'}></MDCIcon>
-        <TextInput style={style.textView} keyboardType="email-address" placeholder="Email" placeholderTextColor="#999" />
+        <TextInput
+          style={style.textView}
+          keyboardType="email-address"
+          placeholder="Email"
+          placeholderTextColor="#999"
+          onChangeText={(text) =>
+            setContact((prevState) => {
+              return { ...prevState, email: text };
+            })
+          }
+        />
       </View>
 
       <TouchableOpacity onPress={showDatePicker}>
         <View style={[style.textInput, style.icon]}>
           <MDCIcon icon={'calendar-days'} color={'#ccc'}></MDCIcon>
-          <TextInput style={style.textView} editable={false} value={newDate} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
+          <TextInput style={style.textView} editable={false} value={contact.birthday} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
           <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
         </View>
       </TouchableOpacity>
