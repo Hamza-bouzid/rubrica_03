@@ -21,8 +21,6 @@ const HomeScreen = (props) => {
     const tokens = await MDC.session.tokens();
     const auth = 'bearer ' + tokens.accessToken;
 
-    console.log(MDC.util)
-
     const response = await fetch('https://services.g-oal.com/academy_03.dev/v1/' + url, {
       method: 'POST',
       headers: {
@@ -42,7 +40,24 @@ const HomeScreen = (props) => {
     goalCall('contact/get_user_contacts', textInput);
   }, [textInput, contacts]);
 
-  const renderContact = ({ item }) => <Card name={item.name} surname={item.surname} avatar={item.avatar} />;
+  const renderContact = ({ item }) => (
+    <TouchableOpacity
+      onPress={() =>
+        navigation.navigate('SingleContact', {
+          uid: item.uid,
+          name: item.name,
+          surname: item.surname,
+          telephone_number: item.telephone_number,
+          avatar: item.avatar,
+          email: item.email,
+          address: item.address,
+          birthday: item.birthday,
+        })
+      }
+    >
+      <Card name={item.name} surname={item.surname} avatar={item.avatar} />
+    </TouchableOpacity>
+  );
 
   return (
     <View style={style.main}>
@@ -130,13 +145,13 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingVertical: 10,
-    color: "#555",
-    textAlign: 'center'
+    color: '#555',
+    textAlign: 'center',
   },
   noResultSmallText: {
     textAlign: 'center',
-    color: "#999",
-  }
+    color: '#999',
+  },
 });
 
 export default MDC.localization.withTranslation()(HomeScreen);

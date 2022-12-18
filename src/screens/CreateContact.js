@@ -1,4 +1,4 @@
-import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
 import * as MDC from 'mdcx-framework';
 import moment from 'moment';
 import { MDCIcon } from 'mdcx-components';
@@ -17,8 +17,8 @@ const CreateContact = (props) => {
     birthday: '',
     telephone_number: '',
     avatar: '',
+    address: '',
   });
-
 
   const goalCall = async (body) => {
     const tokens = await MDC.session.tokens();
@@ -52,7 +52,6 @@ const CreateContact = (props) => {
   };
 
   const handleConfirm = (date) => {
-    console.warn('A date has been picked: ', date);
     setContact((prevState) => {
       return { ...prevState, birthday: date.toLocaleDateString(), avatar: image };
     });
@@ -71,102 +70,116 @@ const CreateContact = (props) => {
 
   return (
     <ScrollView style={style.main}>
-      <View
-        style={{
-          marginBottom: 25,
-        }}
-      >
-        <Image
+      <KeyboardAvoidingView enebled  behavior={Platform.OS === "ios" ? "padding" : "height"}>
+        <View
           style={{
-            resizeMode: 'cover',
-            height: 150,
-            width: 150,
-            borderRadius: 100 / 1,
-            marginBottom: 1,
-            marginTop: 10,
-            alignSelf: 'center',
+            marginBottom: 25,
           }}
-          source={{
-            uri: image,
-          }}
-        />
+        >
+          <Image
+            style={{
+              resizeMode: 'cover',
+              height: 150,
+              width: 150,
+              borderRadius: 100 / 1,
+              marginBottom: 1,
+              marginTop: 10,
+              alignSelf: 'center',
+            }}
+            source={{
+              uri: image,
+            }}
+          />
 
-        <TouchableOpacity style={style.button} onPress={() => randomImage()}>
-          <Text>Aggiungi imagine</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={[style.textInput, style.icon]}>
-        <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
-        <TextInput
-          style={style.textView}
-          placeholder="Nome"
-          placeholderTextColor="#999"
-          onChangeText={(text) =>
-            setContact((prevState) => {
-              return { ...prevState, name: text };
-            })
-          }
-        />
-      </View>
-      <View style={[style.textInput, style.icon]}>
-        <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
-        <TextInput
-          style={style.textView}
-          placeholder="Cognome"
-          placeholderTextColor="#999"
-          onChangeText={(text) =>
-            setContact((prevState) => {
-              return { ...prevState, surname: text };
-            })
-          }
-        />
-      </View>
-      <View style={[style.textInput, style.icon]}>
-        <MDCIcon icon={'phone'} color={'#ccc'}></MDCIcon>
-        <TextInput
-          style={style.textView}
-          keyboardType="phone-pad"
-          placeholder="Numero"
-          placeholderTextColor="#999"
-          onChangeText={(text) =>
-            setContact((prevState) => {
-              return { ...prevState, telephone_number: text };
-            })
-          }
-        />
-      </View>
-
-      <View style={[style.textInput, style.icon]}>
-        <MDCIcon icon={'envelope'} color={'#ccc'}></MDCIcon>
-        <TextInput
-          style={style.textView}
-          keyboardType="email-address"
-          placeholder="Email"
-          placeholderTextColor="#999"
-          onChangeText={(text) =>
-            setContact((prevState) => {
-              return { ...prevState, email: text };
-            })
-          }
-        />
-      </View>
-
-      <TouchableOpacity onPress={showDatePicker}>
-        <View style={[style.textInput, style.icon]}>
-          <MDCIcon icon={'calendar-days'} color={'#ccc'}></MDCIcon>
-          <TextInput style={style.textView} editable={false} value={contact.birthday} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
-          <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
+          <TouchableOpacity style={style.button} onPress={() => randomImage()}>
+            <Text>Aggiungi immagine</Text>
+          </TouchableOpacity>
         </View>
-      </TouchableOpacity>
 
-      <View style={[style.textInput, style.icon]}>
-        <MDCIcon icon={'location-dot'} color={'#ccc'}></MDCIcon>
-        <TextInput style={style.textView} placeholder="Indirizzo" placeholderTextColor="#999" />
-      </View>
-      <TouchableOpacity style={style.button} onPress={() => saveData()}>
-        <Text style={{ fontWeight: 'bold' }}>Aggiungi contatto</Text>
-      </TouchableOpacity>
+        <View style={[style.textInput, style.icon]}>
+          <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
+          <TextInput
+            style={style.textView}
+            placeholder="Nome"
+            placeholderTextColor="#999"
+            onChangeText={(text) =>
+              setContact((prevState) => {
+                return { ...prevState, name: text };
+              })
+            }
+          />
+        </View>
+        <View style={[style.textInput, style.icon]}>
+          <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
+          <TextInput
+            style={style.textView}
+            placeholder="Cognome"
+            placeholderTextColor="#999"
+            onChangeText={(text) =>
+              setContact((prevState) => {
+                return { ...prevState, surname: text };
+              })
+            }
+          />
+        </View>
+        <View style={[style.textInput, style.icon]}>
+          <MDCIcon icon={'phone'} color={'#ccc'}></MDCIcon>
+          <TextInput
+            style={style.textView}
+            keyboardType="phone-pad"
+            placeholder="Numero"
+            placeholderTextColor="#999"
+            onChangeText={(text) =>
+              setContact((prevState) => {
+                return { ...prevState, telephone_number: text };
+              })
+            }
+          />
+        </View>
+
+        <View style={[style.textInput, style.icon]}>
+          <MDCIcon icon={'envelope'} color={'#ccc'}></MDCIcon>
+          <TextInput
+            style={style.textView}
+            keyboardType="email-address"
+            placeholder="Email"
+            placeholderTextColor="#999"
+            onChangeText={(text) =>
+              setContact((prevState) => {
+                return { ...prevState, email: text };
+              })
+            }
+          />
+        </View>
+
+        <TouchableOpacity onPress={showDatePicker}>
+          <View style={[style.textInput, style.icon]}>
+            <MDCIcon icon={'calendar-days'} color={'#ccc'}></MDCIcon>
+            <TextInput
+              style={style.textView}
+              editable={false}
+              value={contact.birthday}
+              placeholder="Compleanno"
+              placeholderTextColor="#999"
+              onChangeText={(text) =>
+                setContact((prevState) => {
+                  return { ...prevState, address: text };
+                })
+              }
+              title="Show Date Picker"
+            />
+            <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
+          </View>
+        </TouchableOpacity>
+
+        <View style={[style.textInput, style.icon]}>
+          <MDCIcon icon={'location-dot'} color={'#ccc'}></MDCIcon>
+          <TextInput style={style.textView} placeholder="Indirizzo" placeholderTextColor="#999" />
+        </View>
+        <TouchableOpacity style={style.button} onPress={() => saveData()}>
+          <Text style={{ fontWeight: 'bold' }}>Aggiungi contatto</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </ScrollView>
   );
 };

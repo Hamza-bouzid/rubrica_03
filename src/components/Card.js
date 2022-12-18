@@ -5,27 +5,11 @@ import * as MDC from 'mdcx-framework';
 import { MDCImage } from 'mdcx-components';
 import { MDCIcon } from 'mdcx-components';
 
-const Card = ({ name, surname, avatar, telephone_number }) => {
+const Card = ({ name, surname, avatar }) => {
   return (
     <View style={style.card}>
-      {avatar !== "" ? <Image
-        style={{
-          resizeMode: 'cover',
-          height: 50,
-          width: 50,
-          borderRadius: 100 / 1,
-        }}
-        source={{ uri: avatar }}
-      /> : <Image
-      style={{
-        resizeMode: 'cover',
-        height: 50,
-        width: 50,
-        borderRadius: 100 / 1,
-      }}
-      source={{ uri: 'https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png' }}
-    /> }
-      
+      {avatar !== '' ? <Image style={style.image} source={{ uri: avatar }} /> : <Image style={style.image} source={{ uri: 'https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png' }} />}
+
       <View
         style={{
           marginLeft: 20,
@@ -51,8 +35,7 @@ const Card = ({ name, surname, avatar, telephone_number }) => {
           flexDirection: 'row',
           width: '100%',
         }}
-      >
-      </View>
+      ></View>
     </View>
   );
 };
@@ -68,6 +51,12 @@ const style = StyleSheet.create({
     borderBottomColor: '#ccc',
     marginTop: 10,
     marginBottom: 10,
+  },
+  image: {
+    resizeMode: 'cover',
+    height: 50,
+    width: 50,
+    borderRadius: 100 / 1,
   },
 });
 

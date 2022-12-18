@@ -20,8 +20,9 @@ const NavigationScreen = (props) => {
         <MDCStack.Screen name="Elements" component={Screen.ElementsScreen} options={{ title: 'UI Elements' }} />
         <MDCStack.Screen name="CreateContact" component={Screen.CreateContact} options={{ title: 'Nuovo Contatto' }} />
         <MDCStack.Screen name="Call" component={Screen.CallScreen} options={{ title: 'Fai una chiamata' }} />
+        <MDCStack.Screen name="SingleContact" component={Screen.SingleContactScreen} options={{ title: '' }} />
       </MDCStack.Navigator>
-      <NavBar navigation={navigation} />
+      {/*<NavBar navigation={navigation} />*/}
     </>
   );
 };
