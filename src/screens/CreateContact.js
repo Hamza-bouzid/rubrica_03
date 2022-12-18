@@ -1,6 +1,5 @@
 import { View, StyleSheet, TextInput, Image, TouchableOpacity, Text, ScrollView, KeyboardAvoidingView } from 'react-native';
 import * as MDC from 'mdcx-framework';
-import moment from 'moment';
 import { MDCIcon } from 'mdcx-components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import React, { useState } from 'react';
