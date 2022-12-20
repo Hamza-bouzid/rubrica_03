@@ -69,9 +69,7 @@ const HomeScreen = (props) => {
           paddingRight: 10,
         }}
       >
-        <TouchableOpacity onPress={() => navigation.navigate('CreateContact')}>
-          <MDCIcon icon={'plus-circle'} width={30} height={30} color={'#999'}></MDCIcon>
-        </TouchableOpacity>
+        
       </View>
 
       <View style={[style.textInput, style.viewSearch]}>
@@ -110,11 +108,10 @@ const HomeScreen = (props) => {
 const style = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: '#fafafa',
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
-    marginBottom: 70
+    marginBottom: 55
   },
   textInput: {
     backgroundColor: '#e3e3e8',
