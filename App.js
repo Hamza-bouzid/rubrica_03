@@ -24,27 +24,7 @@ const MDCStack = createMDCNavigator();
 MDC.localization.resources(resources);
 
 class MDCTemplate extends MDCBundle {
-  navigationStarterRef = React.createRef()
-  bundleDidLoad(params) {
-    MDC.logger.info('bundleDidLoad()', params);
-
-    console.log(params);
-  }
-
-  bundleDidShow(params) {
-    console.log(params)
-   if(this.navigationStarterRef.current) {
-    this.navigationStarterRef.current.bundleDidShow(params)
-   }
-
-    console.log(params);
-  }
-
-  bundleShouldHide(callback) {
-    MDC.logger.info('bundleShouldHide()');
-
-    callback();
-  }
+  
 
   render() {
     return (

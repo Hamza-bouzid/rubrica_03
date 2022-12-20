@@ -10,7 +10,6 @@ const CreateContact = (props) => {
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [image, setImage] = useState('https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png');
-  const [showSpace, setShowSpace] = useState(false);
   const [visiblePoup, setVisiblePoup] = useState(false);
   const [contact, setContact] = useState({
     name: '',
@@ -36,8 +35,12 @@ const CreateContact = (props) => {
       body: JSON.stringify(body),
     });
 
-    console.log(body);
-    return;
+    console.log(response.ok);
+    if (response.ok) {
+      return;
+    } else {
+      setVisiblePoup(true);
+    }
   };
 
   const saveData = () => {
@@ -46,7 +49,7 @@ const CreateContact = (props) => {
       setVisiblePoup(false);
       goalCall(contact);
       navigation.navigate('Home');
-    }, 3000);
+    }, 2000);
   };
 
   const showDatePicker = () => {
@@ -59,7 +62,16 @@ const CreateContact = (props) => {
 
   const handleConfirm = (date) => {
     setContact((prevState) => {
-      return { ...prevState, birthday: date.toLocaleDateString(), avatar: image };
+      return {
+        ...prevState,
+        birthday: date
+          .toISOString()
+          .substring(0, 10)
+          .match(/([^T]+)/)[0]
+          .split('-')
+          .reverse()
+          .join('/'),
+      };
     });
     hideDatePicker();
   };
@@ -124,7 +136,7 @@ const CreateContact = (props) => {
             placeholderTextColor="#999"
             onChangeText={(text) =>
               setContact((prevState) => {
-                return { ...prevState, name: text };
+                return { ...prevState, name: text, avatar: image };
               })
             }
           />
@@ -151,7 +163,7 @@ const CreateContact = (props) => {
             placeholderTextColor="#999"
             onChangeText={(text) =>
               setContact((prevState) => {
-                return { ...prevState, telephone_number: text };
+                return { ...prevState, telephone_number: text, avatar: image };
               })
             }
           />
@@ -201,7 +213,6 @@ const CreateContact = (props) => {
         </TouchableOpacity>
         {/* White Space */}
       </ScrollView>
-      <View style={style.whiteSpace}></View>
     </View>
   );
 };

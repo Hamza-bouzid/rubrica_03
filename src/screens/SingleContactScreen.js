@@ -20,6 +20,7 @@ const SingleContactScreen = (props) => {
     uid: route.params.uid,
     name: route.params.name,
     surname: route.params.surname,
+    address: route.params.address,
     email: route.params.email,
     birthday: route.params.birthday,
     telephone_number: route.params.telephone_number,
@@ -47,7 +48,16 @@ const SingleContactScreen = (props) => {
   const handleConfirm = (date) => {
     console.warn('A date has been picked: ', date);
     setContact((prevState) => {
-      return { ...prevState, birthday: date.toLocaleDateString(), avatar: image };
+      return {
+        ...prevState,
+        birthday: date
+          .toISOString()
+          .substring(0, 10)
+          .match(/([^T]+)/)[0]
+          .split('-')
+          .reverse()
+          .join('/'),
+      };
     });
     hideDatePicker();
   };
@@ -58,6 +68,10 @@ const SingleContactScreen = (props) => {
     const randomGender = Math.floor(Math.random() * 2);
 
     setImage(`https://xsgames.co/randomusers/assets/avatars/${gender[randomGender]}/${randomNumber}.jpg`);
+
+    setContact((prevState) => {
+      return { ...prevState, avatar: image };
+    });
   };
 
   //https://services.g-oal.com/academy_03.dev/v1/contact/crud/delete
@@ -138,17 +152,18 @@ const SingleContactScreen = (props) => {
             <MDCIcon icon={'phone'} width={25} height={25} color={'white'} />
           </TouchableOpacity>
         </View>
-        <View style={[style.icon, style.editIcon]}>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => show()}>
-            <MDCIcon icon={'edit'} width={25} height={25} color={'white'} />
-          </TouchableOpacity>
-        </View>
         {route.params.owner_uid === '' ? (
-          <View style={[style.icon, style.deleteIconDisabled]}>
-            <TouchableOpacity activeOpacity={0.7}>
-              <MDCIcon icon={'trash'} width={25} height={25} color={'white'} />
+          <></>
+        ) : (
+          <View style={[style.icon, style.editIcon]}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => show()}>
+              <MDCIcon icon={'edit'} width={25} height={25} color={'white'} />
             </TouchableOpacity>
           </View>
+        )}
+
+        {route.params.owner_uid === '' ? (
+          <></>
         ) : (
           <View style={[style.icon, style.deleteIcon]}>
             <TouchableOpacity activeOpacity={0.7} onPress={() => setVisiblePoup(true)}>
@@ -220,7 +235,8 @@ const SingleContactScreen = (props) => {
 
       {visible ? (
         <View style={style.mainUpdate}>
-          <View
+          <View style={style.border}></View>
+          {/* <View
             style={{
               marginBottom: 25,
             }}
@@ -228,6 +244,15 @@ const SingleContactScreen = (props) => {
             <TouchableOpacity style={style.button} onPress={() => randomImage()}>
               <Text>Cambia immagine</Text>
             </TouchableOpacity>
+          </View> */}
+
+          <View
+            style={{
+              alignSelf: 'center',
+              padding: 20,
+            }}
+          >
+            <Text style={{ fontSize: 18 }}>Modifica Contatto</Text>
           </View>
 
           <View style={[style.textInput, style.iconForm]}>
@@ -312,13 +337,20 @@ const SingleContactScreen = (props) => {
               }
             />
           </View>
-          <TouchableOpacity style={style.button} onPress={() => saveData()}>
-            <Text style={{ fontWeight: 'bold' }}>Salva</Text>
-          </TouchableOpacity>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}
+          >
+            <TouchableOpacity style={style.button} onPress={() => saveData()}>
+              <Text style={style.ManageUpdate}>Salva</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={style.button} onPress={() => cancel()}>
-            <Text style={{ fontWeight: 'bold' }}>Annulla</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={style.button} onPress={() => cancel()}>
+              <Text style={style.ManageUpdate}>Annulla</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       ) : (
         <></>
@@ -390,6 +422,13 @@ const style = StyleSheet.create({
   mainUpdate: {
     flex: 1,
     padding: 10,
+    marginTop: 10,
+  },
+
+  ManageUpdate: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    padding: 10,
   },
 
   textInput: {
@@ -415,6 +454,12 @@ const style = StyleSheet.create({
   button: {
     marginTop: 10,
     alignSelf: 'center',
+  },
+  border: {
+    width: '100%',
+    height: 0.5,
+    backgroundColor: '#ccc',
+    marginBottom: 10,
   },
 });
 
