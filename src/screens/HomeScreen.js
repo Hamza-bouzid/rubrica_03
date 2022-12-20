@@ -52,6 +52,7 @@ const HomeScreen = (props) => {
           email: item.email,
           address: item.address,
           birthday: item.birthday,
+          owner_uid: item.owner_uid,
         })
       }
     >

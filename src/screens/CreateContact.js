@@ -3,12 +3,15 @@ import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import React, { useState } from 'react';
+import ModalPoup from '../components/ModalPoup';
 
 const CreateContact = (props) => {
   const { navigation } = props;
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [image, setImage] = useState('https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png');
+  const [showSpace, setShowSpace] = useState(false);
+  const [visiblePoup, setVisiblePoup] = useState(false);
   const [contact, setContact] = useState({
     name: '',
     surname: '',
@@ -38,8 +41,12 @@ const CreateContact = (props) => {
   };
 
   const saveData = () => {
-    goalCall(contact);
-    navigation.navigate('Home');
+    setVisiblePoup(true);
+    setTimeout(() => {
+      setVisiblePoup(false);
+      goalCall(contact);
+      navigation.navigate('Home');
+    }, 3000);
   };
 
   const showDatePicker = () => {
@@ -68,8 +75,22 @@ const CreateContact = (props) => {
   };
 
   return (
-    <ScrollView style={style.main}>
-      <KeyboardAvoidingView enebled  behavior={Platform.OS === "ios" ? "padding" : "height"}>
+    <View style={style.main}>
+      <ModalPoup visible={visiblePoup}>
+        <View style={{ alignItems: 'center' }}>
+          <View style={style.checkIcon}>
+            <MDCIcon icon={'check'} width={80} height={80} color={'white'} />
+          </View>
+          <View>
+            <Text style={style.modalText}>Il contatto è stato aggiunto con sucesso</Text>
+          </View>
+        </View>
+      </ModalPoup>
+      <ScrollView
+        style={{
+          height: 600,
+        }}
+      >
         <View
           style={{
             marginBottom: 25,
@@ -178,8 +199,10 @@ const CreateContact = (props) => {
         <TouchableOpacity style={style.button} onPress={() => saveData()}>
           <Text style={{ fontWeight: 'bold' }}>Aggiungi contatto</Text>
         </TouchableOpacity>
-      </KeyboardAvoidingView>
-    </ScrollView>
+        {/* White Space */}
+      </ScrollView>
+      <View style={style.whiteSpace}></View>
+    </View>
   );
 };
 
@@ -212,6 +235,22 @@ const style = StyleSheet.create({
   button: {
     marginTop: 10,
     alignSelf: 'center',
+  },
+  whiteSpace: {
+    flex: 1,
+    width: '100%',
+    height: 100,
+    backgroundColor: 'pink',
+  },
+  modalText: {
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  checkIcon: {
+    backgroundColor: '#2ed058',
+    padding: 15,
+    borderRadius: 100 / 1,
+    marginVertical: 20,
   },
 });
 

@@ -1,13 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
+import { useState } from 'react';
 
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
 import { useRoute } from '@react-navigation/native';
+import ModalPoup from '../components/ModalPoup';
 
 const SingleContactScreen = (props) => {
   const { navigation } = props;
   const route = useRoute();
+  const [visiblePoup, setVisiblePoup] = useState(false);
 
   //https://services.g-oal.com/academy_03.dev/v1/contact/crud/delete
 
@@ -35,6 +38,7 @@ const SingleContactScreen = (props) => {
   };
 
   const deleteContact = () => {
+    setVisiblePoup(false);
     goalCall('contact/crud/delete', route.params.uid);
     navigation.navigate('Home');
   };
@@ -63,7 +67,7 @@ const SingleContactScreen = (props) => {
             fontSize: 20,
             color: '#222',
             marginBottom: 5,
-            fontWeight: '500'
+            fontWeight: '500',
           }}
         >
           {route.params.name} {route.params.surname}
@@ -80,11 +84,19 @@ const SingleContactScreen = (props) => {
             <MDCIcon icon={'edit'} width={25} height={25} color={'white'} />
           </TouchableOpacity>
         </View>
-        <View style={[style.icon, style.deleteIcon]}>
-          <TouchableOpacity activeOpacity={0.7} onPress={() => deleteContact()}>
-            <MDCIcon icon={'trash'} width={25} height={25} color={'white'} />
-          </TouchableOpacity>
-        </View>
+        {route.params.owner_uid === '' ? (
+          <View style={[style.icon, style.deleteIconDisabled]}>
+            <TouchableOpacity activeOpacity={0.7}>
+              <MDCIcon icon={'trash'} width={25} height={25} color={'white'} />
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={[style.icon, style.deleteIcon]}>
+            <TouchableOpacity activeOpacity={0.7} onPress={() => setVisiblePoup(true)}>
+              <MDCIcon icon={'trash'} width={25} height={25} color={'white'} />
+            </TouchableOpacity>
+          </View>
+        )}
       </View>
       <View
         style={{
@@ -118,6 +130,34 @@ const SingleContactScreen = (props) => {
           <></>
         )}
       </View>
+      <ModalPoup visible={visiblePoup}>
+        <View style={{ alignItems: 'center' }}>
+          <View>
+            <Text style={style.modalText}>
+              Vuoi eliminare il contatto: {route.params.name} {route.params.surname}?
+            </Text>
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              marginTop: 20,
+              width: '100%',
+              justifyContent: 'space-around',
+            }}
+          >
+            <TouchableOpacity onPress={() => setVisiblePoup(false)}>
+              <View style={[style.icon, style.deleteIcon]}>
+                <MDCIcon icon={'xmark'} width={25} height={25} color={'white'} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => deleteContact()}>
+              <View style={[style.icon, style.checkIcon]}>
+                <MDCIcon icon={'check'} width={25} height={25} color={'white'} />
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ModalPoup>
     </View>
   );
 };
@@ -171,6 +211,16 @@ const style = StyleSheet.create({
   },
   editIcon: {
     backgroundColor: '#3479dd',
+  },
+  deleteIconDisabled: {
+    backgroundColor: '#d98886',
+  },
+  modalText: {
+    textAlign: 'center',
+    fontSize: 20,
+  },
+  checkIcon: {
+    backgroundColor: '#2ed058',
   },
 });
 
