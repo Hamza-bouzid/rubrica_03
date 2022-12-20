@@ -11,6 +11,8 @@ const CreateContact = (props) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [image, setImage] = useState('https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png');
   const [visiblePoup, setVisiblePoup] = useState(false);
+  const [visiblePoupNegative, setVisiblePoupNegative] = useState(false);
+  const [userContact, setUserContact] = useState(true);
   const [contact, setContact] = useState({
     name: '',
     surname: '',
@@ -21,11 +23,11 @@ const CreateContact = (props) => {
     address: '',
   });
 
-  const goalCall = async (body) => {
+  const goalCall = async (url, body) => {
     const tokens = await MDC.session.tokens();
     const auth = 'bearer ' + tokens.accessToken;
 
-    const response = await fetch('https://services.g-oal.com/academy_03.dev/v1/contact/crud/insert', {
+    const response = await fetch('https://services.g-oal.com/academy_03.dev/v1/' + url, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -35,21 +37,26 @@ const CreateContact = (props) => {
       body: JSON.stringify(body),
     });
 
-    console.log(response.ok);
     if (response.ok) {
-      return;
-    } else {
       setVisiblePoup(true);
+      setTimeout(() => {
+        navigation.navigate('Home');
+        return;
+      }, 2000);
+    } else {
+      setVisiblePoupNegative(true);
+      setTimeout(() => {
+        setVisiblePoupNegative(false);
+      }, 2000);
     }
   };
 
   const saveData = () => {
-    setVisiblePoup(true);
-    setTimeout(() => {
-      setVisiblePoup(false);
-      goalCall(contact);
-      navigation.navigate('Home');
-    }, 2000);
+    if (userContact) {
+      goalCall('contact/crud/insert', contact);
+    } else {
+      goalCall('contact/company/insert_company', contact);
+    }
   };
 
   const showDatePicker = () => {
@@ -82,42 +89,68 @@ const CreateContact = (props) => {
     const randomGender = Math.floor(Math.random() * 2);
 
     setImage(`https://xsgames.co/randomusers/assets/avatars/${gender[randomGender]}/${randomNumber}.jpg`);
-
-    console.log(image);
   };
 
   return (
     <View style={style.main}>
+      {/*POP UP */}
       <ModalPoup visible={visiblePoup}>
         <View style={{ alignItems: 'center' }}>
           <View style={style.checkIcon}>
             <MDCIcon icon={'check'} width={80} height={80} color={'white'} />
           </View>
           <View>
-            <Text style={style.modalText}>Il contatto è stato aggiunto con sucesso</Text>
+            <Text style={style.modalText}>Il contatto è stato aggiunto con successo</Text>
           </View>
         </View>
       </ModalPoup>
-      <ScrollView
-        style={{
-          height: 600,
-        }}
-      >
+      <ModalPoup visible={visiblePoupNegative}>
+        <View style={{ alignItems: 'center' }}>
+          <View style={style.XmarkIcon}>
+            <MDCIcon icon={'xmark'} width={80} height={80} color={'white'} />
+          </View>
+          <View>
+            <Text style={style.modalText}>Il contatto non è stato aggiunto</Text>
+          </View>
+        </View>
+      </ModalPoup>
+      {/*FINE POP UP */}
+
+      <ScrollView>
+        {userContact ? (
+          <View style={style.radioButtons}>
+            <TouchableOpacity disabled>
+              <View style={[style.radioButton, style.radioButtonActive]}>
+                <Text style={style.radioButtonTextActive}>Personale</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setUserContact(false)}>
+              <View style={style.radioButton}>
+                <Text style={style.radioButtonText}>Aziendale</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View style={style.radioButtons}>
+            <TouchableOpacity onPress={() => setUserContact(true)}>
+              <View style={style.radioButton}>
+                <Text style={style.radioButtonText}>Personali</Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity disabled>
+              <View style={[style.radioButton, style.radioButtonActive]}>
+                <Text style={style.radioButtonTextActive}>Aziendali</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        )}
         <View
           style={{
             marginBottom: 25,
           }}
         >
           <Image
-            style={{
-              resizeMode: 'cover',
-              height: 150,
-              width: 150,
-              borderRadius: 100 / 1,
-              marginBottom: 1,
-              marginTop: 10,
-              alignSelf: 'center',
-            }}
+            style={style.image}
             source={{
               uri: image,
             }}
@@ -222,7 +255,15 @@ const style = StyleSheet.create({
     flex: 1,
     padding: 10,
   },
-
+  image: {
+    resizeMode: 'cover',
+    height: 150,
+    width: 150,
+    borderRadius: 100 / 1,
+    marginBottom: 1,
+    marginTop: 10,
+    alignSelf: 'center',
+  },
   textInput: {
     backgroundColor: '#e3e3e8',
     marginBottom: 10,
@@ -262,6 +303,38 @@ const style = StyleSheet.create({
     padding: 15,
     borderRadius: 100 / 1,
     marginVertical: 20,
+  },
+
+  XmarkIcon: {
+    backgroundColor: '#ec534d',
+    padding: 15,
+    borderRadius: 100 / 1,
+    marginVertical: 20,
+    width: 100,
+    height: 100,
+  },
+
+  radioButtons: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 10,
+  },
+
+  radioButton: {
+    backgroundColor: '#ccc',
+    padding: 10,
+    marginHorizontal: 10,
+  },
+
+  radioButtonText: {
+    color: '#555',
+  },
+
+  radioButtonActive: {
+    backgroundColor: '#3479dd',
+  },
+  radioButtonTextActive: {
+    color: '#fafafa',
   },
 });
 

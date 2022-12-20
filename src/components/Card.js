@@ -5,7 +5,7 @@ import * as MDC from 'mdcx-framework';
 import { MDCImage } from 'mdcx-components';
 import { MDCIcon } from 'mdcx-components';
 
-const Card = ({ name, surname, avatar, telephone_number, owner_uid }) => {
+const Card = ({ uid, name, surname, avatar, telephone_number, owner_uid }) => {
   return (
     <View style={style.card}>
       {avatar !== '' ? <Image style={style.image} source={{ uri: avatar }} /> : <Image style={style.image} source={{ uri: 'https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png' }} />}

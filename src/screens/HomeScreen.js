@@ -56,7 +56,7 @@ const HomeScreen = (props) => {
         })
       }
     >
-      <Card name={item.name} surname={item.surname} avatar={item.avatar} telephone_number={item.telephone_number} owner_uid={item.owner_uid} />
+      <Card name={item.name} uid={item.uid} surname={item.surname} avatar={item.avatar} telephone_number={item.telephone_number} owner_uid={item.owner_uid} />
     </TouchableOpacity>
   );
 
