@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
+import { MDCIcon } from 'mdcx-components';
 
 import * as MDC from 'mdcx-framework';
 
@@ -19,13 +20,23 @@ const ContactRow = ({ name, surname, avatar, telephone_number, navigation }) => 
                     />
                 }
             </View> */}
+        <View style={style.contactRow}>
+            <View style={style.data}>
+                <Text style={style.name}>
+                {name} {surname}
+                </Text>
+                <Text style={style.phone}>
+                    {telephone_number}
+                </Text>
+            </View>
+            <View>
+                <View style={style.infoIcon}>
+                    <MDCIcon icon={'info'} width={25} height={25} color={'white'} />
+        </View>
+            </View>
 
-      <View style={style.image}>
-        <Text style={style.name}>
-          {name} {surname}
-        </Text>
-        <Text style={style.phone}>{telephone_number}</Text>
-      </View>
+        </View>
+      
     </View>
   );
 };
@@ -34,14 +45,41 @@ const style = StyleSheet.create({
   row: {
     flexDirection: 'column',
     paddingLeft: 30,
-    borderBottomColor: 'grey',
-    borderBottomWidth: 1,
+    borderTopColor: '#82868A',
+    borderTopRightRadius: 100,
+    borderTopLeftRadius: 100,
+    borderBottomRightRadius: 100,
+    borderBottomLeftRadius: 100,
+    borderTopWidth: 1,
     paddingBottom: 5,
     paddingTop: 5,
+
   },
+  contactRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginRight: 50,
+    alignItems: 'center',
+
+  },
+  data:{
+
+  },
+  infoIcon:{
+    
+    justifyContent: 'center',
+    borderRadius: 100,
+    width: 25,
+    height: 25,
+    backgroundColor: '#B2B3B5',
+    margin: 1,
+    
+  },
+
   name: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
+    color: '#56585D'
   },
   phone: {
     fontSize: 14,
