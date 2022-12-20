@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 const UpdateContact = (props) => {
   const { navigation } = props;
+  const route = useRoute();
 
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [image, setImage] = useState('https://www.confcommerciomolise.it/wp-content/uploads/2018/02/user-icon.png');
@@ -86,12 +87,12 @@ const UpdateContact = (props) => {
             alignSelf: 'center',
           }}
           source={{
-            uri: image,
+            uri: avatar,
           }}
         />
 
         <TouchableOpacity style={style.button} onPress={() => randomImage()}>
-          <Text>Aggiungi imagine</Text>
+          <Text>Cambia immagine</Text>
         </TouchableOpacity>
       </View>
 
@@ -101,6 +102,7 @@ const UpdateContact = (props) => {
           style={style.textView}
           placeholder="Nome"
           placeholderTextColor="#999"
+          value={route.params.name}
           onChangeText={(text) =>
             setContact((prevState) => {
               return { ...prevState, name: text };
@@ -112,6 +114,7 @@ const UpdateContact = (props) => {
         <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
         <TextInput
           style={style.textView}
+          value={route.params.surname}
           placeholder="Cognome"
           placeholderTextColor="#999"
           onChangeText={(text) =>
@@ -127,6 +130,7 @@ const UpdateContact = (props) => {
           style={style.textView}
           keyboardType="phone-pad"
           placeholder="Numero"
+          value={route.params.telephone_number}
           placeholderTextColor="#999"
           onChangeText={(text) =>
             setContact((prevState) => {
@@ -142,6 +146,7 @@ const UpdateContact = (props) => {
           style={style.textView}
           keyboardType="email-address"
           placeholder="Email"
+          value={route.params.email}
           placeholderTextColor="#999"
           onChangeText={(text) =>
             setContact((prevState) => {
@@ -154,14 +159,14 @@ const UpdateContact = (props) => {
       <TouchableOpacity onPress={showDatePicker}>
         <View style={[style.textInput, style.icon]}>
           <MDCIcon icon={'calendar-days'} color={'#ccc'}></MDCIcon>
-          <TextInput style={style.textView} editable={false} value={contact.birthday} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
+          <TextInput style={style.textView} editable={false} value={route.params.birthday} placeholder="Compleanno" placeholderTextColor="#999" title="Show Date Picker" />
           <DateTimePickerModal isVisible={isDatePickerVisible} mode="date" onConfirm={handleConfirm} onCancel={hideDatePicker} />
         </View>
       </TouchableOpacity>
 
       <View style={[style.textInput, style.icon]}>
         <MDCIcon icon={'location-dot'} color={'#ccc'}></MDCIcon>
-        <TextInput style={style.textView} placeholder="Indirizzo" placeholderTextColor="#999" />
+        <TextInput style={style.textView} placeholder="Indirizzo" value={route.params.address} placeholderTextColor="#999" />
       </View>
       <TouchableOpacity style={style.button} onPress={() => saveData()}>
         <Text style={{ fontWeight: 'bold' }}>Aggiungi contatto</Text>
