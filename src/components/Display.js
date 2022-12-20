@@ -1,6 +1,6 @@
+
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, TextInput} from 'react-native';
-import ContactRow from '../ContactRow';
 
 import * as MDC from 'mdcx-framework';
 
@@ -12,13 +12,11 @@ const Display = ({value}) => {
         textInput: '',
       });
 
-
     
       
     useEffect(() => {
         setValue(value)
     }, [value]);
-
 
     return (
     <View>
@@ -57,3 +55,6 @@ const style = StyleSheet.create({
 })
 
 export default MDC.localization.withTranslation()(Display);
+
+
+

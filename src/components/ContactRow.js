@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 
@@ -59,3 +60,6 @@ const style = StyleSheet.create({
 });
 
 export default MDC.localization.withTranslation()(ContactRow);
+
+
+

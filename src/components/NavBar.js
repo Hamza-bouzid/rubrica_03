@@ -8,12 +8,12 @@ const NavBar = (props) => {
   const { navigation } = props;
   return (
     <View style={style.navbar}>
-      {/* <View style={style.iconBox}>
+      <View style={style.iconBox}>
         <TouchableOpacity onPress={() => navigation.navigate('CreateContact')}>
-          <MDCIcon width={30} height={30} icon={'star'} color={'#999'}></MDCIcon>
-          <Text style={style.iconText}>Preferiti</Text>
+          <MDCIcon width={30} height={30} icon={'user-plus'} color={'#999'}></MDCIcon>
+          <Text style={style.iconText}>Nuovo contatto</Text>
         </TouchableOpacity>
-      </View> */}
+      </View>
       <View style={style.iconBox}>
         <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <MDCIcon width={30} height={30} icon={'user'} color={'#999'}></MDCIcon>
@@ -26,11 +26,9 @@ const NavBar = (props) => {
           <Text style={style.iconText}>Tastierino</Text>
         </TouchableOpacity>
       </View>
-      {/* <View style={style.iconBox} onPress={() => navigation.navigate('Home')}>
-        <MDCIcon width={30} height={30} icon={'user-friends'} color={'#999'}></MDCIcon>
-        <Text style={style.iconText}>Categorie</Text>
-      </View> */}
+      
     </View>
+
   );
 };
 
@@ -43,7 +41,7 @@ const style = StyleSheet.create({
     width: '100%',
     heigth: 10,
     paddingTop: 10,
-    paddingBottom: 30,
+    paddingBottom: 10,
     paddingHorizontal: 20,
   },
   iconBox: {

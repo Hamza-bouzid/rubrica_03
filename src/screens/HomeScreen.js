@@ -5,7 +5,6 @@ import { View, StyleSheet, TextInput, FlatList, TouchableOpacity, Text } from 'r
 import * as MDC from 'mdcx-framework';
 import { MDCIcon } from 'mdcx-components';
 
-import HelloWorld from '../components/HelloWorld';
 import { backgroundColor } from 'mdcx-framework/dist/GUI/Navbar';
 import Card from '../components/Card';
 import NavBar from '../components/NavBar';
@@ -115,6 +114,7 @@ const style = StyleSheet.create({
     paddingBottom: 5,
     paddingLeft: 5,
     paddingRight: 5,
+    marginBottom: 70
   },
   textInput: {
     backgroundColor: '#e3e3e8',
