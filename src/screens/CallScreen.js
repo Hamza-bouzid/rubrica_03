@@ -8,13 +8,11 @@ import { Linking } from 'react-native';
 import * as MDC from 'mdcx-framework';
 
 const CallScreen = (props) => {
-
   const [displayValue, setDisplayValue] = useState('');
   const { navigation } = props;
   const [contacts, setContacts] = useState();
-  const [textInput, setTextInput] = useState({
-    textInput: '',
-  });
+
+  console.log(displayValue);
 
   const changeDisplay = (number) => {
     setDisplayValue((preNum) => {
@@ -43,7 +41,9 @@ const CallScreen = (props) => {
         'Content-Type': 'application/json',
         Authorization: auth, //'HS256 XXX'
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify({
+        textInput: body,
+      }),
     });
 
     setContacts(await response.json());
@@ -53,8 +53,8 @@ const CallScreen = (props) => {
 
   //******************filtro **************/
   useEffect(() => {
-    goalCall('contact/get_user_contacts', textInput);
-  }, [textInput, contacts]);
+    goalCall('contact/get_user_contacts', displayValue);
+  }, [displayValue]);
 
   //******************Chiamare un numero di telefono con API native del sistema operativo ********/
 
@@ -91,7 +91,7 @@ const CallScreen = (props) => {
   return (
     <View style={style.main}>
       <View>
-        <Display value={displayValue} onChangeText={(displayValue) => setTextInput({ textInput: displayValue })} />
+        <Display value={displayValue} />
 
         <View style={style.filteredList}>
           {displayValue !== '' ? (
