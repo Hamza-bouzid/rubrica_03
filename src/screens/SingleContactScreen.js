@@ -8,6 +8,7 @@ import { MDCIcon } from 'mdcx-components';
 import { useRoute } from '@react-navigation/native';
 import ModalPoup from '../components/ModalPoup';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { Linking } from 'react-native';
 
 const SingleContactScreen = (props) => {
   const { navigation } = props;
@@ -115,6 +116,18 @@ const SingleContactScreen = (props) => {
     setIsVisible(false);
   };
 
+  //******************Chiamare un numero di telefono con API native del sistema operativo ********/
+
+  const callNumber = async (number) => {
+    const url = 'tel:' + number;
+    const supported = await Linking.canOpenURL(url);
+    if (supported)
+      Linking.openURL(url).catch((error) => {
+        console.log(error);
+      });
+  };
+
+
   return (
     <ScrollView style={style.main}>
       <View
@@ -148,7 +161,7 @@ const SingleContactScreen = (props) => {
       </View>
       <View style={style.icons}>
         <View style={[style.icon, style.callIcon]}>
-          <TouchableOpacity activeOpacity={0.7}>
+          <TouchableOpacity activeOpacity={0.7} onPress={() => callNumber(contact.telephone_number)}>
             <MDCIcon icon={'phone'} width={25} height={25} color={'white'} />
           </TouchableOpacity>
         </View>
