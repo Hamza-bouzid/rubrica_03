@@ -12,8 +12,6 @@ const CallScreen = (props) => {
   const { navigation } = props;
   const [contacts, setContacts] = useState();
 
-  console.log(displayValue);
-
   const changeDisplay = (number) => {
     setDisplayValue((preNum) => {
       let stringPreNum = preNum.toString();
