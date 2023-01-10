@@ -6,10 +6,11 @@ import { MDCIcon } from 'mdcx-components';
 
 const NavBar = (props) => {
   const { navigation } = props;
+  //const [icon, setIcon] = useState(true);
   return (
     <View style={style.navbar}>
       <View style={style.iconBox}>
-        <TouchableOpacity onPress={() => navigation.navigate('CreateContact')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('CreateContact')}>
           <MDCIcon width={30} height={30} icon={'user-plus'} color={'#999'}></MDCIcon>
           <Text style={style.iconText}>Nuovo contatto</Text>
         </TouchableOpacity>
@@ -26,12 +27,11 @@ const NavBar = (props) => {
           <Text style={style.iconText}>Tastierino</Text>
         </TouchableOpacity>
       </View>
-      
     </View>
-
+    
+   
   );
-};
-
+  };
 
 
 const style = StyleSheet.create({
@@ -55,6 +55,9 @@ const style = StyleSheet.create({
     fontSize: 10,
     color: '#999',
     paddingTop: 5,
+  },
+  iconActive: {
+    color: '#fafafa',
   },
 });
 

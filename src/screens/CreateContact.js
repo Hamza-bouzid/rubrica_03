@@ -323,6 +323,7 @@ const style = StyleSheet.create({
   radioButton: {
     backgroundColor: '#ccc',
     padding: 10,
+    borderRadius: 20,
     marginHorizontal: 10,
   },
 

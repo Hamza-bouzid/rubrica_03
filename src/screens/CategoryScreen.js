@@ -36,7 +36,7 @@ const HomeScreen = (props) => {
   };
 
   useEffect(() => {
-    goalCall('contact/get_user_contacts', textInput);
+    goalCall('category/get_all_category', textInput);
   }, [textInput, contacts]);
 
   const renderContact = ({ item }) => (
@@ -45,17 +45,11 @@ const HomeScreen = (props) => {
         navigation.navigate('SingleContact', {
           uid: item.uid,
           name: item.name,
-          surname: item.surname,
-          telephone_number: item.telephone_number,
-          avatar: item.avatar,
-          email: item.email,
-          address: item.address,
-          birthday: item.birthday,
           owner_uid: item.owner_uid,
         })
       }
     >
-      <Card name={item.name} uid={item.uid} surname={item.surname} avatar={item.avatar} telephone_number={item.telephone_number} owner_uid={item.owner_uid} />
+      <Card name={item.name} uid={item.uid} />
     </TouchableOpacity>
   );
 

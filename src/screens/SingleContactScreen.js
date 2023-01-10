@@ -249,7 +249,17 @@ const SingleContactScreen = (props) => {
       {visible ? (
         <View style={style.mainUpdate}>
           <View style={style.border}></View>
-          {/* <View
+           <View
+            style={{
+              alignSelf: 'center',
+              padding: 20,
+            }}
+          >
+            <Text style={{ fontSize: 18, color:"#000000"}}>Modifica Contatto</Text>
+          </View>
+
+          
+          <View
             style={{
               marginBottom: 25,
             }}
@@ -257,17 +267,9 @@ const SingleContactScreen = (props) => {
             <TouchableOpacity style={style.button} onPress={() => randomImage()}>
               <Text>Cambia immagine</Text>
             </TouchableOpacity>
-          </View> */}
+          </View> 
 
-          <View
-            style={{
-              alignSelf: 'center',
-              padding: 20,
-            }}
-          >
-            <Text style={{ fontSize: 18 }}>Modifica Contatto</Text>
-          </View>
-
+         
           <View style={[style.textInput, style.iconForm]}>
             <MDCIcon icon={'user'} color={'#ccc'}></MDCIcon>
             <TextInput
