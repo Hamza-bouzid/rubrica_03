@@ -38,7 +38,7 @@ const Card = ({ uid, name, surname, avatar, telephone_number, owner_uid }) => {
           </Text>
         </View>
 
-        {owner_uid === '' ? <MDCIcon icon={'user-tie'} color={'#999'}></MDCIcon> : <MDCIcon icon={'user'} color={'#999'}></MDCIcon>}
+        {owner_uid === '' ? <MDCIcon icon={'user-tie'} color={'#3479dd'}></MDCIcon> : <MDCIcon icon={'user'} color={'#999'}></MDCIcon>}
       </View>
       <View
         style={{

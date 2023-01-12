@@ -165,18 +165,18 @@ const style = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 25,
-    marginRight: 25,
+    marginLeft: 50,
+    marginRight: 50,
   },
 
   number: {
     borderColor: 'grey',
     borderRadius: 100,
-    width: 60,
-    height: 60,
+    width: 70,
+    height: 70,
     justifyContent: 'center',
     backgroundColor: '#c4c3c0',
-    margin: 9,
+    margin:10,
   },
 
   numberText: {

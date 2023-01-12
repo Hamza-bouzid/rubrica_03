@@ -36,7 +36,7 @@ const HomeScreen = (props) => {
   };
 
   useEffect(() => {
-    goalCall('contact/get_user_contacts', textInput);
+    goalCall('contact/get_all', textInput);
   }, [textInput, contacts]);
 
   const renderContact = ({ item }) => (
